@@ -1,0 +1,9 @@
+name: ImmersiveWorldTools
+version: '${project.version}'
+main: me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools
+api-version: '1.20'
+commands:
+  immersiveworldtools:
+    description: All things for configuring the mask plugin.
+    usage: /<command> <setflicker>
+    aliases: [ iwt ]
