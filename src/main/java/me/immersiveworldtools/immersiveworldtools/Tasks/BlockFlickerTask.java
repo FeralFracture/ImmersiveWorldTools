@@ -1,8 +1,7 @@
 package me.immersiveworldtools.immersiveworldtools.Tasks;
 
 import me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools;
-import me.immersiveworldtools.immersiveworldtools.Utils.FlickerBlock;
-import org.bukkit.Bukkit;
+import me.immersiveworldtools.immersiveworldtools.Utils.Classes.FlickerBlock;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -11,7 +10,6 @@ import org.bukkit.craftbukkit.v1_20_R1.block.impl.CraftRedstoneLamp;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.UUID;
 
