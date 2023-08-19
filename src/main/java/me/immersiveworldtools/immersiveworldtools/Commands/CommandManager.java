@@ -1,5 +1,6 @@
 package me.immersiveworldtools.immersiveworldtools.Commands;
 
+import me.immersiveworldtools.immersiveworldtools.Commands.Subcommands.ReloadPluginSubcommand;
 import me.immersiveworldtools.immersiveworldtools.Commands.Subcommands.RemoveFlickeringBlockSubcommand;
 import me.immersiveworldtools.immersiveworldtools.Commands.Subcommands.SetFlickeringBlockSubcommand;
 import org.bukkit.ChatColor;
@@ -10,6 +11,7 @@ public class CommandManager extends me.codetoolsapi.codetoolsapi.CommandTools.Co
     public CommandManager() {
         subcommands.add(new SetFlickeringBlockSubcommand());
         subcommands.add(new RemoveFlickeringBlockSubcommand());
+        subcommands.add(new ReloadPluginSubcommand());
     }
     @Override
     public ArrayList<String> subcommand_player_autoTab() {

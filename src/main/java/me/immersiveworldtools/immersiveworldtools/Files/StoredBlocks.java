@@ -18,6 +18,7 @@ public class StoredBlocks extends YmlFile {
     public void addFlickerLightLocation(Location location, int flickerMaxRate) {
         Map<String, Object> jsonData = new HashMap<>();
         jsonData.put("blockType", "lamp");
+        jsonData.put("worldName", location.getWorld().getName());
         jsonData.put("x", location.getBlockX());
         jsonData.put("y", location.getBlockY());
         jsonData.put("z", location.getBlockZ());

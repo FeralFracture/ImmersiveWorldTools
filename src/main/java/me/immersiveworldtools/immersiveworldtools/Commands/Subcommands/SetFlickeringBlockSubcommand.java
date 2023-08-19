@@ -21,12 +21,12 @@ public class SetFlickeringBlockSubcommand extends Subcommand {
 
     @Override
     public String getDescription() {
-        return "set flickering lamp";
+        return "Set flickering lamp to flicker toggle at a rate of a range of 5 to (default 60) ticks.";
     }
 
     @Override
     public String getSyntax() {
-        return "/iwt " + getName();
+        return "/iwt " + getName() + " <None(default is 60) | number of ticks>";
     }
 
     @Override

@@ -4,6 +4,7 @@ import me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools;
 import me.immersiveworldtools.immersiveworldtools.Utils.FlickerBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.v1_20_R1.block.impl.CraftRedstoneLamp;
@@ -23,8 +24,8 @@ public class BlockFlickerTask extends BukkitRunnable {
     private Random r = new Random();
     public FlickerBlock flickerBlock = new FlickerBlock();
     private int maxTicks;
-    public BlockFlickerTask(UUID p, UUID id, int X, int Y, int Z, int maxTicks) {
-        this.lamp = Bukkit.getPlayer(p).getWorld().getBlockAt(X, Y, Z);
+    public BlockFlickerTask(World w, UUID id, int X, int Y, int Z, int maxTicks) {
+        this.lamp = w.getBlockAt(X, Y, Z);
         lamp.setType(Material.REDSTONE_LAMP);
         this.lampState = lamp.getState();
         this.lampData = (CraftRedstoneLamp) lampState.getBlockData();
