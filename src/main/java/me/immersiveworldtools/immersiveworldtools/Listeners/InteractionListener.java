@@ -1,13 +1,14 @@
 package me.immersiveworldtools.immersiveworldtools.Listeners;
 
 import me.immersiveworldtools.immersiveworldtools.Utils.Classes.InteractionObject;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
-import static me.immersiveworldtools.immersiveworldtools.Utils.InteractableManager.interactablesList;
-import static me.immersiveworldtools.immersiveworldtools.Utils.InteractableManager.readMessage;
+import static me.immersiveworldtools.immersiveworldtools.Utils.InteractableManager.*;
 
 public class InteractionListener implements Listener {
     @EventHandler
@@ -18,5 +19,15 @@ public class InteractionListener implements Listener {
             readMessage(e.getPlayer(), o);
 
         }
+    }
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        e.getPlayer().getWorld().getEntities();
+        for(Entity entity : e.getPlayer().getWorld().getEntities()) {
+            if(entity instanceof Interaction) {
+                entity.remove();
+            }
+        }
+        reload();
     }
 }

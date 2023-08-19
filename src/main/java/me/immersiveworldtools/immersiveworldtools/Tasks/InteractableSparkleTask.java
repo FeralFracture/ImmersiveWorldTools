@@ -12,7 +12,7 @@ import java.util.Random;
 public class InteractableSparkleTask extends BukkitRunnable {
     private InteractionObject parentObject;
     private Random r = new Random();
-    private int maxTicks = 40;
+    private int maxTicks = 60;
 
     public InteractableSparkleTask(InteractionObject parent) {
         parentObject = parent;
@@ -26,15 +26,17 @@ public class InteractableSparkleTask extends BukkitRunnable {
         new BukkitRunnable() {
             @Override
             public void run() {
-                int volume = (int) Math.ceil((double)parentObject.interaction.getInteractionHeight() + (double)parentObject.interaction.getInteractionWidth());
-                double multi = 0.17;
-                parentObject.interaction.getWorld().spawnParticle(
-                        Particle.VILLAGER_HAPPY, parentObject.interaction.getLocation().add(0, ((double)parentObject.interaction.getInteractionHeight())/2, 0),
-                        volume,
-                        ((double)parentObject.interaction.getInteractionWidth() * multi),
-                        ((double)parentObject.interaction.getInteractionHeight() * multi),
-                        ((double)parentObject.interaction.getInteractionWidth() * multi)
-                        );
+                if (parentObject.interaction != null) {
+                    int volume = (int) Math.floor((double) parentObject.interaction.getInteractionHeight() + (double) parentObject.interaction.getInteractionWidth());
+                    double multi = 0.30;
+                    parentObject.interaction.getWorld().spawnParticle(
+                            Particle.VILLAGER_HAPPY, parentObject.interaction.getLocation().add(0, ((double) parentObject.interaction.getInteractionHeight()) / 2, 0),
+                            Math.max(volume, 1),
+                            ((double) parentObject.interaction.getInteractionWidth() * multi),
+                            ((double) parentObject.interaction.getInteractionHeight() * multi),
+                            ((double) parentObject.interaction.getInteractionWidth() * multi)
+                    );
+                }
             }
         }.runTaskLater(ImmersiveWorldTools.getPlugin(), delay);
     }

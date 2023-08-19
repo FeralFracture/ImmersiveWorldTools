@@ -19,6 +19,7 @@ public class CommandManager extends me.codetoolsapi.codetoolsapi.CommandTools.Co
         subcommands.add(new ReloadPluginSubcommand());
         subcommands.add(new SummonInteractionEntitySubcommand());
         subcommands.add(new RemoveInteractionEntitySubcommand());
+        subcommands.add(new ConfigureInteractionEntitiesSubcommand());
     }
     @Override
     public ArrayList<String> subcommand_player_autoTab() {
@@ -89,15 +90,15 @@ public class CommandManager extends me.codetoolsapi.codetoolsapi.CommandTools.Co
                     words.add(((Subcommand)this.subcommands.get(i)).getName());
                 }
             }
-        } else if (args.length == 2) {
+        } else if (args.length == 3) {
             words.add(
                     String.valueOf(((Player) commandSender).getTargetBlockExact(5).getX())
             );
-        }else if (args.length == 3) {
+        }else if (args.length == 4) {
             words.add(
                     String.valueOf(((Player) commandSender).getTargetBlockExact(5).getY())
             );
-        }else if (args.length == 4) {
+        }else if (args.length == 5) {
             words.add(
                     String.valueOf(((Player) commandSender).getTargetBlockExact(5).getZ())
             );

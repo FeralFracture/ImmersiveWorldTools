@@ -17,9 +17,17 @@ public class StoredInteractions extends YmlFile {
 
     public void addInteractableToConfig(InteractionObject o) {
         Map<String, Object> jsonData = new HashMap<>();
+        jsonData.put("block", o.blockType.name());
         jsonData.put("message",o.message);
         jsonData.put("hexColor", o.hexColor);
-        config.addDefault(o.uuid, jsonData);
+        jsonData.put("X", o.x);
+        jsonData.put("Y", o.y);
+        jsonData.put("Z", o.z);
+        jsonData.put("height", o.height);
+        jsonData.put("width",o.width);
+        jsonData.put("world", o.world);
+
+        config.addDefault(o.interactionName, jsonData);
 
         save();
     }

@@ -24,22 +24,23 @@ public class SummonInteractionEntitySubcommand extends Subcommand {
 
     @Override
     public void perform(Player player, String[] strings) {
-        if (strings.length < 7) {
+        if (strings.length < 8) {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Invalid Inputs");
         } else {
-            float x = Float.parseFloat(strings[1]);
-            float y = Float.parseFloat(strings[2]);
-            float z = Float.parseFloat(strings[3]);
-            float width = Float.parseFloat(strings[4]);
-            float height = Float.parseFloat(strings[5]);
+            String name = strings[1];
+            float x = Float.parseFloat(strings[2]);
+            float y = Float.parseFloat(strings[3]);
+            float z = Float.parseFloat(strings[4]);
+            float width = Float.parseFloat(strings[5]);
+            float height = Float.parseFloat(strings[6]);
             StringBuilder message = new StringBuilder();
-            for (int i = 6; i < strings.length; i++) {
+            for (int i = 7; i < strings.length; i++) {
                 message.append(strings[i]);
                 if ((i + 1) < strings.length) {
                     message.append(" ");
                 }
             }
-            addInteraction(player, x, y, z, width, height, message.toString());
+            addInteraction(player, x, y, z, width, height, message.toString(), name);
         }
     }
 }
