@@ -60,32 +60,65 @@ public class InteractableManager {
     }
 
     public static void addInteraction(Player p, float x, float y, float z, float width, float height, String message, String name) {
-        Interaction interactionBox = (Interaction) p.getWorld().spawnEntity(new Location(p.getWorld(), x + 0.5F, y, z + 0.5F), EntityType.INTERACTION);
-        interactionBox.setInteractionHeight(height);
-        interactionBox.setInteractionWidth(width);
-        InteractionObject o = new InteractionObject(interactionBox, message, name);
-        o.blockType = p.getWorld().getBlockAt(new Location(p.getWorld(), x, y, z)).getType();
-        o.uuid = interactionBox.getUniqueId().toString();
-        o.x = x + 0.5F;
-        o.y = y;
-        o.z = z + 0.5F;
-        o.height = height;
-        o.width = width;
-        o.world = p.getWorld().getName();
-        storedInteractions.addInteractableToConfig(o);
-        interactablesList.add(o);
+        if (!interactablesList.stream().anyMatch(i -> i.interactionName.equalsIgnoreCase(name))) {
+            Interaction interactionBox = (Interaction) p.getWorld().spawnEntity(new Location(p.getWorld(), x + 0.5F, y, z + 0.5F), EntityType.INTERACTION);
+            interactionBox.setInteractionHeight(height);
+            interactionBox.setInteractionWidth(width);
+            InteractionObject o = new InteractionObject(interactionBox, message, name);
+            o.blockType = p.getWorld().getBlockAt(new Location(p.getWorld(), x, y, z)).getType();
+            o.uuid = interactionBox.getUniqueId().toString();
+            o.x = x + 0.5F;
+            o.y = y;
+            o.z = z + 0.5F;
+            o.height = height;
+            o.width = width;
+            o.world = p.getWorld().getName();
+            storedInteractions.addInteractableToConfig(o);
+            interactablesList.add(o);
+            reload();
+        } else {
+            p.sendMessage(ChatColor.RED + "An interaction already exists with that name.");
+        }
+    }
+
+    public static void addInteraction(Player p, InteractionObject io) {
+        if (!interactablesList.stream().anyMatch(i -> i.interactionName.equalsIgnoreCase(io.interactionName))) {
+            storedInteractions.addInteractableToConfig(io);
+            interactablesList.add(io);
+            reload();
+        } else {
+            p.sendMessage(ChatColor.RED + "An interaction already exists with that name.");
+        }
+    }
+
+    public static void updateInteraction(String name, String key, String value) {
+        InteractionObject io = interactablesList.stream().filter(i -> i.interactionName.equalsIgnoreCase(name)).findFirst().get();
+        switch (key) {
+            case "message":
+                io.message = value;
+                break;
+        }
+        storedInteractions.updateInteractionToConfig(name, key, value);
         reload();
     }
 
-    public static void removeInteraction(String uuid) {
-        InteractionObject IObject = interactablesList.stream().filter(e -> e.uuid.equals(uuid)).findFirst().get();
-        IObject.interaction.remove();
+    public static void updateInteraction(InteractionObject o, String key) {
+        storedInteractions.updateInteractionToConfig(o, key);
+        reload();
+    }
+
+
+    public static void removeInteraction(String name) {
+        InteractionObject IObject = interactablesList.stream().filter(e -> e.interactionName.equals(name)).findFirst().get();
+        if (IObject.interaction != null) {
+            IObject.interaction.remove();
+        }
         IObject.stopSparkle();
         BukkitRunnable sa = new BukkitRunnable() {
             @Override
             public void run() {
                 interactablesList.remove(IObject);
-                storedInteractions.removeInteractableEntry(uuid);
+                storedInteractions.removeInteractableEntry(name);
             }
         };
         sa.runTaskLater(ImmersiveWorldTools.getPlugin(), 8L);
@@ -106,15 +139,19 @@ public class InteractableManager {
     public static void clearInteractions() {
         for (InteractionObject o : interactablesList) {
             o.stopSparkle();
-            o.interaction.remove();
+            if (o.interaction != null) {
+                o.interaction.remove();
+            }
         }
         interactablesList.clear();
     }
 
     public static void readMessage(Player p, InteractionObject o) {
-        String outMessage = ChatColor.translateAlternateColorCodes('&', o.message);
-        outMessage = outMessage.replaceAll("&h", hexColor(o.hexColor));
-        p.sendMessage(outMessage);
+        p.sendMessage(viewMessage(o));
+    }
 
+    public static String viewMessage(InteractionObject o) {
+        String outMessage = ChatColor.translateAlternateColorCodes('&', o.message);
+        return outMessage.replaceAll("&h", hexColor(o.hexColor));
     }
 }

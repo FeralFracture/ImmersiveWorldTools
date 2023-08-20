@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class ConfigureInteractionEntitiesSubcommand extends Subcommand {
     @Override
     public String getName() {
-        return "configureinteractionentities";
+        return "configureinteractions";
     }
 
     @Override

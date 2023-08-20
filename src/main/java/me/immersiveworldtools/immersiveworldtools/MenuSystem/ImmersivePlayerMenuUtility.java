@@ -7,4 +7,5 @@ public class ImmersivePlayerMenuUtility extends PlayerMenuUtility {
     public ImmersivePlayerMenuUtility(Player owner) {
         super(owner);
     }
+    public String selectedInteractable;
 }

@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools.storedBlocks;
 import static me.immersiveworldtools.immersiveworldtools.Utils.BlockFlickerManager.addFlickerBlock;
+import static me.immersiveworldtools.immersiveworldtools.Utils.GeneralUtils.getDefaultConfig;
 
 public class SetFlickeringBlockSubcommand extends Subcommand {
     @Override
@@ -32,7 +33,7 @@ public class SetFlickeringBlockSubcommand extends Subcommand {
     @Override
     public void perform(Player player, String[] strings) {
         Block target = player.getTargetBlockExact(5);
-        int max = 60;
+        int max = getDefaultConfig().getInt("defaultFlickerMaxTicks");
         try {
             max = Integer.parseInt(strings[1]);
         } catch (Exception e) {

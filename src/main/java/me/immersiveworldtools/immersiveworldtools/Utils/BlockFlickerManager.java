@@ -77,6 +77,7 @@ public class BlockFlickerManager {
             task.cancel();
             storedBlocks.removeFlickerEntry(task.flickerBlock.uuidKey);
             p.sendMessage(ChatColor.GREEN + "Flicker block removed.");
+            reload();
         }
         else {
             p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Selected block is not a flicker block.");

@@ -12,7 +12,7 @@ import java.util.Random;
 public class InteractableSparkleTask extends BukkitRunnable {
     private InteractionObject parentObject;
     private Random r = new Random();
-    private int maxTicks = 60;
+    private int maxTicks = 35;
 
     public InteractableSparkleTask(InteractionObject parent) {
         parentObject = parent;
@@ -28,7 +28,7 @@ public class InteractableSparkleTask extends BukkitRunnable {
             public void run() {
                 if (parentObject.interaction != null) {
                     int volume = (int) Math.floor((double) parentObject.interaction.getInteractionHeight() + (double) parentObject.interaction.getInteractionWidth());
-                    double multi = 0.30;
+                    double multi = 0.34;
                     parentObject.interaction.getWorld().spawnParticle(
                             Particle.VILLAGER_HAPPY, parentObject.interaction.getLocation().add(0, ((double) parentObject.interaction.getInteractionHeight()) / 2, 0),
                             Math.max(volume, 1),

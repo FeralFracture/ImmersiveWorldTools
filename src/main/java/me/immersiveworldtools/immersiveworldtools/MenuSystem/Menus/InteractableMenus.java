@@ -19,7 +19,7 @@ import static me.immersiveworldtools.immersiveworldtools.Utils.HexColorsUtils.he
 import static me.immersiveworldtools.immersiveworldtools.Utils.InteractableManager.interactablesList;
 
 public class InteractableMenus extends PaginatedMenu {
-    public InteractableMenus(ImmersivePlayerMenuUtility playerMenuUtility) {
+    public InteractableMenus(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
 
     }
@@ -45,7 +45,8 @@ public class InteractableMenus extends PaginatedMenu {
         if (e.getCurrentItem().getType().equals(Material.BARRIER)) {
             //close inventory
             p.closeInventory();
-        } else if (e.getCurrentItem().getType().equals(Material.DARK_OAK_BUTTON)) {
+        }
+        else if (e.getCurrentItem().getType().equals(Material.DARK_OAK_BUTTON)) {
             if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase("Left")) {
                 if (page == 0) {
                     p.sendMessage(ChatColor.GRAY + "Already on page 0.");
@@ -53,7 +54,8 @@ public class InteractableMenus extends PaginatedMenu {
                     page = page - 1;
                     super.open();
                 }
-            } else if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase("Right")) {
+            }
+            else if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase("Right")) {
                 if (!((index + 1) >= interactablesList.size())) {
                     page = page + 1;
                     super.open();
@@ -61,6 +63,10 @@ public class InteractableMenus extends PaginatedMenu {
                     p.sendMessage(ChatColor.GRAY + "Final page.");
                 }
             }
+        }
+        else if(e.getRawSlot() < 45 && e.getCurrentItem() != null && !e.getCurrentItem().getItemMeta().getDisplayName().isEmpty()){
+            ((ImmersivePlayerMenuUtility) playerMenuUtility).selectedInteractable = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
+            new IndividualInteractableConfigMenu(playerMenuUtility).open();
         }
     }
 
@@ -81,15 +87,14 @@ public class InteractableMenus extends PaginatedMenu {
                     blockMeta.setDisplayName(ChatColor.BLUE + interactablesList.get(index).interactionName);
                     addPersistentData(blockMeta.getPersistentDataContainer(), "uuid", interactablesList.get(index).uuid);
                     ArrayList<String> blockLore = new ArrayList<>();
-                    blockLore.add(ChatColor.DARK_GREEN + "XYZ: " + ChatColor.YELLOW + interactablesList.get(index).x + " | " + interactablesList.get(index).y + " | " +
-                            interactablesList.get(index).z);
+                    blockLore.add(ChatColor.DARK_GREEN + "XYZ: " + ChatColor.YELLOW + (interactablesList.get(index).x - 0.5F)+ " | " + interactablesList.get(index).y + " | " +
+                            (interactablesList.get(index).z-0.5F));
                     blockLore.add(ChatColor.DARK_GREEN + "Height/Width: " + ChatColor.YELLOW + interactablesList.get(index).height + " | " + interactablesList.get(index).width);
 
                     String outMessage = ChatColor.translateAlternateColorCodes('&', interactablesList.get(index).message);
                     outMessage = outMessage.replaceAll("&h", hexColor(interactablesList.get(index).hexColor));
                     blockLore.add(ChatColor.DARK_GREEN + "Interaction Message: \"" + ChatColor.WHITE + outMessage + ChatColor.DARK_GREEN + "\"");
                     blockLore.add(ChatColor.DARK_GREEN + "Message Hex Color: " + hexColor(interactablesList.get(index).hexColor) + interactablesList.get(index).hexColor);
-
                     blockMeta.setLore(blockLore);
 
                     interactBlockSource.setItemMeta(blockMeta);

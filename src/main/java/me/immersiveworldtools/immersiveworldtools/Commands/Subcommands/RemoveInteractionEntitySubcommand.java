@@ -14,7 +14,7 @@ import static me.immersiveworldtools.immersiveworldtools.Utils.InteractableManag
 public class RemoveInteractionEntitySubcommand extends Subcommand {
     @Override
     public String getName() {
-        return "removeinteractionentity";
+        return "removeinteraction";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class RemoveInteractionEntitySubcommand extends Subcommand {
 
     @Override
     public String getSyntax() {
-        return "/iwt " + getName();
+        return "/iwt " + getName() + " <interaction name>";
     }
 
     @Override
