@@ -1,4 +1,4 @@
-package me.immersiveworldtools.immersiveworldtools.Utils;
+package me.immersiveworldtools.immersiveworldtools.Utils.Classes;
 
 public class FlickerBlock {
     public int x;

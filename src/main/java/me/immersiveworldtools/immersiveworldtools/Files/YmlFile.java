@@ -11,7 +11,7 @@ import static me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools.get
 
 public abstract class YmlFile {
     protected File file;
-    protected static FileConfiguration config;
+    protected FileConfiguration config;
 
     protected abstract void addDefaults();
 
@@ -24,30 +24,34 @@ public abstract class YmlFile {
                 System.out.println("[Error] Error in generating missing '" + filename + ".yml' config file.");
             }
         }
-        config = YamlConfiguration.loadConfiguration(this.file);
+        this.config = YamlConfiguration.loadConfiguration(this.file);
     }
 
     protected void save() {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-            System.out.println("[Error] Failed to save to '" + file.getName() + ".yml'.");
+            System.out.println("[Error] Failed to save to '" + this.file.getName() + ".yml'.");
         }
     }
 
     protected void set(String key, Object value) {
-        config.set(key, value);
+        this.config.set(key, value);
         save();
     }
 
     protected void initializeResponsesConfig(String fileName) {
         setup(fileName);
-        config.options().copyDefaults(true);
+        this.config.options().copyDefaults(true);
         addDefaults();
         save();
     }
 
+    public FileConfiguration getConfig() {
+        return this.config;
+    }
+
     public void reload() {
-        initializeResponsesConfig(file.getName().split(".yml")[0]);
+        initializeResponsesConfig(this.file.getName().split(".yml")[0]);
     }
 }

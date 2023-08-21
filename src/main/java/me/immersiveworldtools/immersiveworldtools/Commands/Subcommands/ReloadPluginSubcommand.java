@@ -2,6 +2,7 @@ package me.immersiveworldtools.immersiveworldtools.Commands.Subcommands;
 
 import me.codetoolsapi.codetoolsapi.CommandTools.Subcommand;
 import me.immersiveworldtools.immersiveworldtools.Utils.BlockFlickerManager;
+import me.immersiveworldtools.immersiveworldtools.Utils.InteractableManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -24,6 +25,7 @@ public class ReloadPluginSubcommand extends Subcommand {
     @Override
     public void perform(Player player, String[] strings) {
         BlockFlickerManager.reload();
+        InteractableManager.reload();
         player.sendMessage(ChatColor.GREEN + "Immersive World Tools configs Reloaded.");
     }
 }
