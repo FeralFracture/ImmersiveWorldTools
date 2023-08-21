@@ -1,22 +1,19 @@
 package me.immersiveworldtools.immersiveworldtools.Utils;
 
-import me.immersiveworldtools.immersiveworldtools.Files.StoredBlocks;
+import me.immersiveworldtools.immersiveworldtools.Files.StoredFlickerBlocks;
 import me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools;
 import me.immersiveworldtools.immersiveworldtools.Tasks.BlockFlickerTask;
+import me.immersiveworldtools.immersiveworldtools.Utils.Classes.FlickerBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static me.immersiveworldtools.immersiveworldtools.ImmersiveWorldTools.storedBlocks;
@@ -25,8 +22,8 @@ public class BlockFlickerManager {
     public static ArrayList<BlockFlickerTask> flickeringBlockTasks = new ArrayList<>();
 
     public static void readConfig() {
-        storedBlocks = new StoredBlocks();
-        FileConfiguration fconfig = ImmersiveWorldTools.storedBlocks.getStoredBlocks();
+        storedBlocks = new StoredFlickerBlocks();
+        FileConfiguration fconfig = ImmersiveWorldTools.storedBlocks.getConfig();
         ConfigurationSection blockDataSection = fconfig.getConfigurationSection("");
         if (blockDataSection != null) {
             for (String key : blockDataSection.getKeys(false)) {
@@ -65,6 +62,7 @@ public class BlockFlickerManager {
         } else {
             p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Selected block is already a flicker block.");
         }
+        reload();
     }
 
     public static void removeFlickerBlock(Player p, Block target) {
@@ -79,6 +77,7 @@ public class BlockFlickerManager {
             task.cancel();
             storedBlocks.removeFlickerEntry(task.flickerBlock.uuidKey);
             p.sendMessage(ChatColor.GREEN + "Flicker block removed.");
+            reload();
         }
         else {
             p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Selected block is not a flicker block.");
@@ -96,7 +95,6 @@ public class BlockFlickerManager {
                 readConfig();
             }
         };
-        s.runTaskLater(ImmersiveWorldTools.getPlugin(), 20L);
-
+        s.runTaskLater(ImmersiveWorldTools.getPlugin(), 5L);
     }
 }

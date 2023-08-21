@@ -14,5 +14,8 @@ public class GeneralUtils {
     public static void setDefaultConfig(String path, @Nullable Object value) {
         getPlugin().getConfig().set(path, value);
         getPlugin().saveConfig();
+        getPlugin().getConfig().options().copyDefaults(true);
+        getPlugin().saveDefaultConfig();
+        getPlugin().saveConfig();
     }
 }

@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class StoredBlocks extends YmlFile {
+public class StoredFlickerBlocks extends YmlFile {
 
-    public StoredBlocks() {
-        initializeResponsesConfig("storedBlocks");
+    public StoredFlickerBlocks() {
+        initializeResponsesConfig("storedFlickerBlocks");
         //flickerBlockCount = ((ArrayList<Map<String, Object>>) config.get("flickerBlocks")).size();
     }
 
@@ -30,6 +30,7 @@ public class StoredBlocks extends YmlFile {
     public void removeFlickerEntry(String key) {
         if(config.contains(key)){
             this.set(key, null);
+            this.save();
         }
         else {
             System.out.println("not found?");
@@ -39,6 +40,4 @@ public class StoredBlocks extends YmlFile {
     @Override
     protected void addDefaults() {
     }
-
-    public FileConfiguration getStoredBlocks() { return config;}
 }
