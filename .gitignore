@@ -102,6 +102,7 @@ pom.xml.versionsBackup
 pom.xml.next
 
 release.properties
+application.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
